@@ -12,42 +12,49 @@ int main(){
     while(opc != 4){
         printf("\n1 -> Encola\n2 -> Desencolar\n3 -> Mostrar\n4 -> Salir\nIngresa una opción: ");
         scanf("%i",&opc);
-        if(opc == 1){
-            if(principio == final && !bandera){
-                printf("¡Cola llena!\n");
-            }else{
-                printf("\nIngrese el dato: ");
-                scanf("%i",&cola[final]);
-                final++;
-                if(final == longitud){
-                    final = 0;
-                    bandera = true;
-                }
-            }
-        }else if(opc == 2){
-            if(principio == final && bandera){
-                printf("\n¡Cola vacía!\n");
-            }else{
-                dato = cola[principio];
-                principio++;
-                if(principio == longitud){
-                    principio = 0;
-                    bandera = false;
-                }
-            }
-        }else if(opc == 3){
-            if(principio == final && bandera){
-                printf("\n¡Cola vacía!\n");
-            }else{
-                i = principio;
-                do{
-                    printf("|%i",cola[i]);
-                    i++;
-                    if(i == longitud){
-                        i = 0;
+        switch (opc) {
+            case 1:
+                if(principio == final && !bandera){
+                    printf("¡Cola llena!\n");
+                }else{
+                    printf("\nIngrese el dato: ");
+                    scanf("%i",&cola[final]);
+                    final++;
+                    if(final == longitud){
+                        final = 0;
+                        bandera = true;
                     }
-                }while(i!=final);
-            }
+                }
+                break;
+            case 2:
+                if(principio == final && bandera){
+                    printf("\n¡Cola vacía!\n");
+                }else{
+                    dato = cola[principio];
+                    principio++;
+                    if(principio == longitud){
+                        principio = 0;
+                        bandera = false;
+                    }
+                }
+                break;
+            case 3:
+                if(principio == final && bandera){
+                    printf("\n¡Cola vacía!\n");
+                }else{
+                    i = principio;
+                    do{
+                        printf("|%i",cola[i]);
+                        i++;
+                        if(i == longitud){
+                            i = 0;
+                        }
+                    }while(i!=final);
+                }
+                break;
+            default:
+                printf("\n¡Opción inválida! ¡Inténtelo nuevamente!\n");
+                break;
         }
     }
 
