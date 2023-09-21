@@ -1,9 +1,14 @@
 /*
 *Programa 6. Cola (versión rústica -circular-)
 *Programa 7. Cola (versión con apuntadores)
-*Programa 8. Aplicación._ Investigación
+*Programa 8. Aplicación._
 */
-/*Realizar una versión del mismo con apuntadores*/
+/*Realizar una versión del mismo con apuntadores
+  Aplicación:
+    - Investigación de operaciones
+    - Planeación
+    - Tablas de prioridades
+*/
 
 #include <stdio.h>
 #include <stdbool.h>
