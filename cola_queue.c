@@ -1,6 +1,12 @@
+/*
+*Programa 6. Cola (versión rústica -circular-)
+*Programa 7. Cola (versión con apuntadores)
+*Programa 8. Aplicación._ Investigación
+*/
+/*Realizar una versión del mismo con apuntadores*/
+
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h>
 int main(){
     int opc = 0;
     int principio = 0, longitud = 7, final = 0;
@@ -51,6 +57,9 @@ int main(){
                         }
                     }while(i!=final);
                 }
+                break;
+            case 4:
+                printf("¡Fin del programa!\n");
                 break;
             default:
                 printf("\n¡Opción inválida! ¡Inténtelo nuevamente!\n");
