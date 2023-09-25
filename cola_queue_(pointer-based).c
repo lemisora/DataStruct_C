@@ -22,8 +22,12 @@
  *     }
  */
 
-struct nodoCola{ //Struct para el manejo de apuntadores
+struct nodo{ //Struct para el manejo de apuntadores
+    int dato, *ap_dato;
+};
 
+struct cola{
+    int *principio, *final, tam;
 };
 
 int main(int argc, char *argv[]){
