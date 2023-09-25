@@ -28,9 +28,29 @@ struct nodo{ //Struct para el manejo de apuntadores
 
 struct cola{
     int *principio, *final, tam;
-};
+}queue;
 
 int main(int argc, char *argv[]){
+    int entrada;
+    char opc;
+    printf("Ingrese un dato para añadirlo a la cola: ");
+    scanf("%i",&entrada);
+    struct nodo *apuntadorNodos;
+    apuntadorNodos = malloc(sizeof(struct nodo));
+    apuntadorNodos->dato = entrada;
+    apuntadorNodos->ap_dato = &apuntadorNodos->dato;
 
+    queue.principio = apuntadorNodos->ap_dato;
+    queue.final = apuntadorNodos->ap_dato;
+
+    printf("El dato ingresado es: %i\n¿Desea ingresar otro dato? [s/N] ",apuntadorNodos->dato);
+
+    scanf("%c",&opc);
+    if(opc == 's' || opc == 'S'){
+        printf("Ingrese el dato a añadir: ");
+
+    }else if(opc == 'n' || opc == 'N'){
+        printf("\n¡Fin del programa!\n");
+    }
     return 0;
 }

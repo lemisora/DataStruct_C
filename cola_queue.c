@@ -1,7 +1,10 @@
+//Alumnos: Leonardo Michel Domingo Sánchez, Marco Antonio Mota Herrera, Jorge Ulises del Moral Muñoz
+//Programa 6. Cola -versión rústica-
+
 /*
 *Programa 6. Cola (versión rústica -circular-)
 *Programa 7. Cola (versión con apuntadores)
-*Programa 8. Aplicación._
+*Programa 8. Aplicación. (Simulación de un estacionamiento)
 */
 /*Realizar una versión del mismo con apuntadores
   Aplicación:
