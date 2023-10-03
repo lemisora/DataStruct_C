@@ -15,19 +15,26 @@ struct cajon{
 };
 
 /*Secuencias para la entrada de un coche
- *      --  Cola de coches
+ *      -- Cola de coches
  *  -> Alta coche
  *      - (Se capturan los datos e incrementa el contador)
  *
  *  -> Generación e impresión de comprobante
  *
- *  -> Asigna y actualiza el cajon (opcional)
- *
+ *  -- Cola de cajones
+ *  -> Asigna y actualiza el cajon (opcional)   -Desencola-
  *
  */
 
 /*Seuencias para la salida de un coche
- *  -> Baja de coches
+ *  ->  Entrega de comprobante (recepción de comprobante)
+ *  ->  Baja de coche
+ *  ->  Cálculo de importe y pago
+ *  ->  Impresión de comprobante de pago
+ *  ->  Entrega y baja de comprobante de pago
+ *  ->  Decrementa contador
+ *  ->  Liberación del cajón (encolar)
+ *
  *
  *
  */
