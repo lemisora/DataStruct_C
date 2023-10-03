@@ -1,5 +1,5 @@
 //Alumnos: Leonardo Michel Domingo Sánchez, Jorge Ulises del Moral Muñoz, Marcon Antonio Mota Herrera
-/*Versión con apuntadores de la cola*/
+/*Version con apuntadores de la cola*/
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -34,7 +34,7 @@ struct cola{
 }queue;
 
 int main(){
-    int i = 0,entrada = 0, opc = 0, dato = 0, longitud = 0, principio = 0;
+    int i = 0,entrada = 0, opc = 0, dato = 0, longitud = 1, principio = 0;
 	queue.flag = true;														//Valor inicial de la bandera de operaciones para la cola
 	queue.tam = 0;															//Se establece el tamaño inicial de la cola
 	
@@ -42,13 +42,13 @@ int main(){
 	
     struct nodo *apuntadorNodos = NULL;										//Se crea un arreglo de nodos --Útil para la cola y su control
 	
-    apuntadorNodos = (struct nodo*)malloc(longitud + 1*sizeof(struct nodo));	//Se reserva espacio inicialmente para los nodos
+    apuntadorNodos = (struct nodo*)malloc(longitud*sizeof(struct nodo));	//Se reserva espacio inicialmente para los nodos
 	
 	queue.principio = &apuntadorNodos[0];
 	queue.final = &apuntadorNodos[0];
 
-	if(apuntadorNodos == NULL){												//Mensaje de error en caso de no funcionar la reservación dinámica de memoria
-		printf("¡Ha fallado la reservación de memoria!\n");
+	if(apuntadorNodos == NULL){												//Mensaje de error en caso de no funcionar la reservacion dinámica de memoria
+		printf(" Ha fallado la reservacion de memoria!\n");
 		return 1;
 	}
 	
@@ -61,18 +61,16 @@ int main(){
 
     while(opc != 4){
 		
-        printf("\n1. Encolar\n2.Desencolar\n3.Mostrar\n4.Salir\nIngrese la opción que desea: ");
+        printf("\n1. Encolar\n2.Desencolar\n3.Mostrar\n4.Salir\nIngrese la opcion que desea: ");
         scanf("%i",&opc);
 		
 		if(opc == 1){
 			longitud = queue.tam+1;	
-			printf("\nTamaño del arreglo -> %i\tPosición arreglo [%i]\nIngrese el dato: ",longitud ,i+1);
-			struct nodo *apuntadorNodosRealloc = (struct nodo*)realloc(apuntadorNodos,longitud + 1*sizeof(struct nodo));
-			
-			
-			
+			printf("\nLongitud del arreglo -> %i\tPosicion arreglo [%i]\nIngrese el dato: ",longitud ,i+1);
+			struct nodo *apuntadorNodosRealloc = (struct nodo*)realloc(apuntadorNodos,longitud*sizeof(struct nodo));
+
 			if(apuntadorNodos == NULL){
-				printf("¡Ha fallado la reasignación de memoria!\n");
+				printf(" Ha fallado la reasignacion de memoria!\n");
 				free(apuntadorNodos);
 				return 1;
 			}
@@ -88,28 +86,46 @@ int main(){
 			i++;
 			queue.final = &apuntadorNodos[i];
 			queue.flag = true;
-		}else
-		if(opc == 2){
+		}
+		else if(opc == 2){
 			if(queue.principio == queue.final && queue.flag){
 				printf("Cola vacia!\n");
 			}else{
 				dato = apuntadorNodos[0].dato;
 				printf("\nDato -> %i\n",dato);
+				// free(&apuntadorNodos[principio]);
 				principio++;
+
 				queue.principio = &apuntadorNodos[principio];
-				
 				queue.flag = false;
 			}
-		}else
-		if(opc == 3){
-			for(int j = 0; j < queue.tam; j++){
-				printf("|%d|",*apuntadorNodos[j].ap_dato);
+		}
+		else if(opc == 3){
+			// if(queue.principio == queue.final && queue.flag){
+			// 	printf("\nCola vacía!\n");
+			// }else{
+			// 	int j = principio;
+			// 	do {
+			// 		printf("|%i|",apuntadorNodos[j].dato);
+			// 		j++;
+			// 		if(&apuntadorNodos[j] == &apuntadorNodos[queue.tam]){
+			// 			j = 0;
+			// 		}
+			// 	}while (&apuntadorNodos[j] != queue.final);
+			// }
+
+			for(int j = principio; j < queue.tam; j++){
+				printf("|%i|",*apuntadorNodos[j].ap_dato);
 			}
 			printf("\n");
-		}else
-		if(opc == 4){
-			free(apuntadorNodos);
-            printf("\n¡Fin del programa!\n");
+		}
+		else if(opc == 4){
+			// for(int j = principio; queue.principio <= queue.final; j++){
+				// printf("Dirección apuntadorNodos[%i] -> %p\tDirección queue.final -> %p\n",j+1,(void *)&apuntadorNodos[j].dato,(void *)queue.final);
+				free(apuntadorNodos);
+			// }
+
+            printf("\n Fin del programa!\n");
 		}
 	}
     return 0;
