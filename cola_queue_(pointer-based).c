@@ -34,7 +34,7 @@ struct cola{
 }queue;
 
 int main(){
-    int i = 0,entrada = 0, opc = 0, dato = 0, longitud = 1, principio = 0;
+    int i = 0,entrada = 0, opc = 0, dato = 0, longitud = 1, principio = 0, final = 0;
 	queue.flag = true;														//Valor inicial de la bandera de operaciones para la cola
 	queue.tam = 0;															//Se establece el tamaño inicial de la cola
 	
@@ -61,9 +61,11 @@ int main(){
 
     while(opc != 4){
 		
-        printf("\n1. Encolar\n2.Desencolar\n3.Mostrar\n4.Salir\nIngrese la opcion que desea: ");
+        printf("\n1. Encolar\n2. Desencolar\n3. Mostrar\n4. Salir\nIngrese la opcion que desea: ");
         scanf("%i",&opc);
-		
+	  if(i < 0){
+      i = 0;
+    }	
 		if(opc == 1){
 			longitud = queue.tam+1;	
 			printf("\nLongitud del arreglo -> %i\tPosicion arreglo [%i]\nIngrese el dato: ",longitud ,i+1);
@@ -91,12 +93,13 @@ int main(){
 			if(queue.principio == queue.final && queue.flag){
 				printf("Cola vacia!\n");
 			}else{
-				dato = apuntadorNodos[0].dato;
+				dato = apuntadorNodos[principio].dato;
 				printf("\nDato -> %i\n",dato);
 				// free(&apuntadorNodos[principio]);
 				principio++;
-
+        i--;
 				queue.principio = &apuntadorNodos[principio];
+
 				queue.flag = false;
 			}
 		}
