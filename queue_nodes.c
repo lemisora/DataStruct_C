@@ -7,7 +7,7 @@ enum Execution{     //Caracteres para el control de ejecución del juego
   QUEUE = 'e',      //Encolar
   DEQUEUE = 'd',    //Desencolar
   SHOW = 'm',       //Mostrar
-}Control;
+};
 
 struct Nodo;
 struct Cola;
@@ -21,7 +21,7 @@ struct Nodo{
 };
 
 struct Cola{
-  Nodo *principioNodo,*finalNodo;
+  Nodo *principioNodo,*apuntadorNodo,*finalNodo;
 };
 
 bool isEmpty(Nodo *p_inicio, Nodo *p_final){
@@ -33,8 +33,8 @@ bool isEmpty(Nodo *p_inicio, Nodo *p_final){
 
 Nodo *creaNodo(int data);
 void eliminaNodo();
-void *pushDataQueue(Nodo *frente, int dato);
-void pullDataQueue();
+void *pushDataQueue(Nodo *apuntadorNodo, int dato);
+void pullDataQueue(Nodo *apuntadorNodo);
 
 int main(){
   char opc;
@@ -71,14 +71,25 @@ int main(){
         cola.principioNodo = pushDataQueue(cola.principioNodo,dato);
         printf("El dato ingresado es -> %i\n",cola.principioNodo->dato);
         break;
+
       case DEQUEUE:
-        printf("El dato desencolado es -> \n");
+        pullDataQueue(cola.apuntadorNodo);
+        printf("El dato eliminado es -> %i",dato);
         break;
+
       case SHOW:
-        printf("Los datos de la cola son: \n");
+        if(isEmpty(cola.principioNodo,cola.finalNodo))
+          printf("¡Cola vacía!\n");
+        else{
+          printf("Los datos de la cola son: \n");
+        }
         break;
+
       case EXIT:
         printf("¡Fin del programa!\n");
+        if(cola.principioNodo != NULL){
+          free(cola.principioNodo);
+        }
         break;
     }
     printf("\n");
@@ -98,9 +109,21 @@ Nodo *creaNodo(int data){
   return nuevoNodo;
 }
 
-void *pushDataQueue(Nodo *frente, int dato){
+void *pushDataQueue(Nodo *apuntadorNodo, int dato){
   Nodo *nuevoNodo = creaNodo(dato);
-  nuevoNodo -> nextDato_Nodo = frente;      
+  nuevoNodo -> nextDato_Nodo = apuntadorNodo;
   return nuevoNodo;
+}
+
+void pullDataQueue(Nodo *apuntadorNodo){
+  int datoEliminado = 0;
+  Nodo *nodoActual = apuntadorNodo;
+  if(nodoActual != NULL){
+    Nodo *nodoTemporal = nodoActual;
+    datoEliminado = nodoActual->dato;
+    apuntadorNodo = apuntadorNodo->nextDato_Nodo;
+    free(nodoTemporal);
+    printf("El dato sacado es -> %i\n",datoEliminado);
+  }
 }
 
