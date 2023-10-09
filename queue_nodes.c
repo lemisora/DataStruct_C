@@ -32,9 +32,10 @@ bool isEmpty(Nodo *p_inicio, Nodo *p_final){
 }
 
 Nodo *creaNodo(int data);
-void eliminaNodo(queue *cola);
-void *pushDataQueue(Nodo *frente, int dato);
-void pullDataQueue();
+void pullDataQueue(queue *cola);
+void pushDataQueue(queue *cola, int dato);
+void muestraQueue(queue *cola);
+void freeQueue(queue *cola);
 
 int main(){
   char opc;
@@ -68,21 +69,25 @@ int main(){
         while (getchar() != '\n') {
           dato = dato;
         }
-        cola.principioNodo = pushDataQueue(cola.principioNodo,dato);
-        printf("El dato ingresado es -> %i\n",cola.principioNodo->dato);
+        /*cola.principioNodo = */pushDataQueue(&cola,dato);
+        printf("El dato ingresado es -> %i\n",cola.finalNodo->dato);
         break;
 
       case DEQUEUE:
         if(isEmpty(cola.principioNodo, cola.finalNodo))
           printf("¡Cola vacía!\n");
         else{
-          eliminaNodo(&cola);
+          pullDataQueue(&cola);
         }
-
         break;
 
       case SHOW:
-        printf("Los datos de la cola son: \n");
+        if(isEmpty(cola.principioNodo, cola.finalNodo))
+          printf("¡Cola vacía!\n");
+        else{
+          printf("Los datos de la cola son: \n");
+          muestraQueue(&cola);
+        }
         break;
 
       case EXIT:
@@ -109,7 +114,7 @@ Nodo *creaNodo(int data){
   return nuevoNodo;
 }
 
-void eliminaNodo(queue *cola){
+void pullDataQueue(queue *cola){
   int dato = 0;
   Nodo *temporal = cola -> principioNodo;              //Se guarda la información del apuntador (la dirección) de Nodo actual en otro apuntador
   dato = temporal -> dato;                 //Se almacena el dato que se va a sacar en la variable temporal 'dato'
@@ -117,14 +122,37 @@ void eliminaNodo(queue *cola){
   if(cola -> principioNodo == NULL)
     cola -> finalNodo = NULL;
   free(temporal);                           //Se libera la memoria en dicha dirección
-  printf("El dato expulsado -> %i",dato);
+  printf("El dato expulsado es -> %i",dato);
 }
 
-void *pushDataQueue(Nodo *frente, int dato){
+void pushDataQueue(queue *cola, int dato){
   Nodo *nuevoNodo = creaNodo(dato);
-  nuevoNodo -> nextDato_Nodo = frente;
-  return nuevoNodo;
+  nuevoNodo -> nextDato_Nodo = NULL;
+
+  if(cola ->finalNodo != NULL)
+    cola -> finalNodo -> nextDato_Nodo = nuevoNodo;
+  cola -> finalNodo = nuevoNodo;
+
+  if(cola -> principioNodo == NULL)
+    cola -> principioNodo = nuevoNodo;
 }
 
+void muestraQueue(queue *cola){
+  Nodo *actual = cola -> principioNodo;
+  while(actual != NULL){
+    printf("|%i|",actual -> dato);
+    actual = actual ->nextDato_Nodo;
+  }
+  printf("\n");
+}
+
+void freeQueue(queue *cola){
+  Nodo *a_Limpiar = cola -> principioNodo;
+  while (a_Limpiar != NULL) {
+    Nodo *temporal = a_Limpiar;
+    a_Limpiar = a_Limpiar ->nextDato_Nodo;
+    free(temporal);
+  }
+}
 
 
