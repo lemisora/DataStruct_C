@@ -7,7 +7,7 @@ enum Execution{     //Caracteres para el control de ejecución del juego
   QUEUE = 'e',      //Encolar
   DEQUEUE = 'd',    //Desencolar
   SHOW = 'm',       //Mostrar
-};
+}Control;
 
 struct Nodo;
 struct Cola;
@@ -21,7 +21,7 @@ struct Nodo{
 };
 
 struct Cola{
-  Nodo *principioNodo,*apuntadorNodo,*finalNodo;
+  Nodo *principioNodo,*finalNodo;
 };
 
 bool isEmpty(Nodo *p_inicio, Nodo *p_final){
@@ -32,9 +32,9 @@ bool isEmpty(Nodo *p_inicio, Nodo *p_final){
 }
 
 Nodo *creaNodo(int data);
-void eliminaNodo();
-void *pushDataQueue(Nodo *apuntadorNodo, int dato);
-void pullDataQueue(Nodo *apuntadorNodo);
+void eliminaNodo(queue *cola);
+void *pushDataQueue(Nodo *frente, int dato);
+void pullDataQueue();
 
 int main(){
   char opc;
@@ -73,23 +73,23 @@ int main(){
         break;
 
       case DEQUEUE:
-        pullDataQueue(cola.apuntadorNodo);
-        printf("El dato eliminado es -> %i",dato);
+        if(isEmpty(cola.principioNodo, cola.finalNodo))
+          printf("¡Cola vacía!\n");
+        else{
+          eliminaNodo(&cola);
+        }
+
         break;
 
       case SHOW:
-        if(isEmpty(cola.principioNodo,cola.finalNodo))
-          printf("¡Cola vacía!\n");
-        else{
-          printf("Los datos de la cola son: \n");
-        }
+        printf("Los datos de la cola son: \n");
         break;
 
       case EXIT:
         printf("¡Fin del programa!\n");
-        if(cola.principioNodo != NULL){
-          free(cola.principioNodo);
-        }
+        // if(cola.principioNodo != NULL){
+        //   free(cola.principioNodo);
+        // }
         break;
     }
     printf("\n");
@@ -109,21 +109,22 @@ Nodo *creaNodo(int data){
   return nuevoNodo;
 }
 
-void *pushDataQueue(Nodo *apuntadorNodo, int dato){
+void eliminaNodo(queue *cola){
+  int dato = 0;
+  Nodo *temporal = cola -> principioNodo;              //Se guarda la información del apuntador (la dirección) de Nodo actual en otro apuntador
+  dato = temporal -> dato;                 //Se almacena el dato que se va a sacar en la variable temporal 'dato'
+  cola -> principioNodo = cola -> principioNodo -> nextDato_Nodo;  //Se le da otra dirección al apuntador actual, se mueve al siguiente nodo
+  if(cola -> principioNodo == NULL)
+    cola -> finalNodo = NULL;
+  free(temporal);                           //Se libera la memoria en dicha dirección
+  printf("El dato expulsado -> %i",dato);
+}
+
+void *pushDataQueue(Nodo *frente, int dato){
   Nodo *nuevoNodo = creaNodo(dato);
-  nuevoNodo -> nextDato_Nodo = apuntadorNodo;
+  nuevoNodo -> nextDato_Nodo = frente;
   return nuevoNodo;
 }
 
-void pullDataQueue(Nodo *apuntadorNodo){
-  int datoEliminado = 0;
-  Nodo *nodoActual = apuntadorNodo;
-  if(nodoActual != NULL){
-    Nodo *nodoTemporal = nodoActual;
-    datoEliminado = nodoActual->dato;
-    apuntadorNodo = apuntadorNodo->nextDato_Nodo;
-    free(nodoTemporal);
-    printf("El dato sacado es -> %i\n",datoEliminado);
-  }
-}
+
 
