@@ -1,103 +1,109 @@
-#include <iostream> 
-#include <fstream>  
-#include <stdlib.h> 
-#include <ctype.h> 
-#include<conio.h>
-#include<stdio.h>
-#include<string.h>
+#include <iostream>
+#include <string>
+#include <vector>
 
-struct cola{
-int placas;
-int estacionamiento;
-char nombre[1000];
-char modelo[1000];
+// MARCO ANTONIO MOTA HERRERA, LEONARDO MICHEL DOMINGO SANCHEZ, JORGE ULISES DEL MORAL MUÑOZ
 
+using namespace std;
 
-struct cola *sig;
-}*princ, *fin;
-int j=0;
+//CÓDIGO DEL ESTACIONAMIENTO//
+struct Vehiculo {
+    string tipo;
+    string color;
+    double horas_estacionado;
+    int id;
 
+    Vehiculo(string _tipo, string _color, double _horas_estacionado, int _id)
+        : tipo(_tipo), color(_color), horas_estacionado(_horas_estacionado), id(_id) {}
+};
 
-void acolar(){
-struct cola *nuevo;
-nuevo=(struct cola *)malloc(sizeof(struct cola));
-printf("INTRODUCIR NOMBRE DEL PROPIETARIO:\n ");
-scanf("%s",&nuevo->nombre);
-printf("INTRODUCIR MODELO DEL AUTO:\n");
-scanf("%s",&nuevo->modelo);
-printf("INTRODUCIR PLACAS:\n");
-scanf("%d",&nuevo->placas);
-printf("INTRODUCIR NUMERO DE ESTACIONAMIENTO:\n");
-scanf("%d",&nuevo->estacionamiento);
-nuevo->sig=NULL;
-if(princ==NULL){
-princ=nuevo;
-fin=nuevo;
-}else{
-fin->sig=nuevo;
-fin=nuevo;
-}
-j++;
-}
+struct ESTACIONAMIENTO {
+    const int lon = 10;
+    vector<Vehiculo> cola;
+    int contador = 0, espacio;
 
-void mostrar(){
-struct cola *aux;
-aux=princ;
-if(aux==NULL){
-printf("COLA VACIA\n");
-}else{
-while(aux!=NULL){
-printf("NOMBRE DEL PROPIETARIO:%s\n MODELO DEL AUTO:%s\n PLACAS DEL AUTO:%d\n NUMERO DE ESTACIONAMIENTO:%d\n \n", aux->nombre,aux->modelo,aux->placas,aux->estacionamiento);
-aux=aux->sig;
-}
-}
-getch();
-}
+    void ingresarvehiculo() {
+        espacio = (lon)-(contador);
+        cout << "\nTienes " << espacio << " espacios disponibles" << endl << endl;
+        if (cola.size() < lon) {
+            int id;
+            string tipo, color;
+            double horas_estacionado;
+            cout << "\nIngresa el ID del vehículo: "; cin >> id;
+            cout << "Ingresa el tipo de vehículo: "; cin >> tipo;
+            cout << "Ingresa el color del vehículo: "; cin >> color;
+            cout << "Ingresa las horas de estacionamiento: "; cin >> horas_estacionado;
+            cola.push_back(Vehiculo(tipo, color, horas_estacionado, id));
+            cout << "\nVehículo con ID " << id << " ingresado al estacionamiento" << endl;
+            contador++; 
+            espacio = lon - contador;
+        } 
+        else {
+            cout << "\nEl estacionamiento esta lleno" << endl;
+        }
+    }
 
+    void sacarvehiculo() {
+        if (!cola.empty()) {
+            Vehiculo vehiculo = cola.front();
+            cola.erase(cola.begin());
 
-void desacolar(){
-struct cola *aux;
-struct cola *aux1;
-int cont;
-aux=princ;
-aux1=princ;
-cont=0;
-while(aux!=NULL){
-if(aux->placas==aux1->placas){
-if(cont==0){
-princ=princ->sig;
-}
-}
-aux=aux->sig;
-aux1=aux;
-cont=1;
-}
-}
+            double costo = vehiculo.horas_estacionado * 15.0;  // Precio fijo de 15 pesos por hora
+            cout << "\nVehículo con ID " << vehiculo.id << " (Tipo: " << vehiculo.tipo << ", Color: " << vehiculo.color << ", Horas Estacionado: " << vehiculo.horas_estacionado << ") ha salido del estacionamiento." << endl;
+            cout << "El costo de estacionamiento es de " << costo << " pesos." << endl;
+            contador--;
+            espacio = lon - contador;
+        } else {
+            cout << "\nEl estacionamiento esta vacío" << endl;
+        }
+    }
 
-
-main(){
-int opc;
-do{
-printf("\n\n\n\t\tREGISTRO DE PERSONAS ***RESTAURANTE UPVM***\t\t\t\t\n");
-printf("\n\t\t\t1. INGRESAR DATOS A LA COLA\n\t\t\t2. MOSTRAR DATOS DE LA COLA\n\t\t\t3. RETIRAR DATOS EN LA COLA\n\t\t\t4. SALIR\n\t\t\t");
-scanf("%d", &opc);
-system("cls");
-switch (opc){
-case 1:
-acolar();
-system("cls");
-break;
-case 2:
-mostrar();
-getch();
-system("cls");
-break;
-case 3:
-desacolar();
-break;
-default:
-printf("SALIR DEL SISTEMA\n");
-break;
+   void mostrarvehiculos() {
+    if (!cola.empty()) {
+        cout << "\nEspacios todavía disponibles: " << (espacio) << endl << endl;
+        cout << "\nVehiculos en el estacionamiento:" << endl;
+        for (size_t i = 0; i < cola.size(); i++) {
+            const Vehiculo& vehiculo = cola[i];
+            cout << "ID: " << vehiculo.id << " | Tipo: " << vehiculo.tipo << " | Color: " << vehiculo.color << " | Horas Estacionado: " << vehiculo.horas_estacionado << " | Costo de Estacionamiento: " << (vehiculo.horas_estacionado * 15) << " pesos" << endl;
+        }
+    } else {
+        cout << "\nEl estacionamiento esta vacío" << endl;
+    }
 }
-}while(opc!=4);
+};
+
+int main() {
+    int opc = 0;
+    ESTACIONAMIENTO estacionamiento;
+                int opc_estacionamiento;
+                do {
+                    cout << "\n>>> CASETA DE ESTACIONAMIENTO <<<" << endl;
+                    cout << "1. INGRESAR VEHÍCULO" << endl;
+                    cout << "2. RETIRAR VEHÍCULO" << endl;
+                    cout << "3. MOSTRAR VEHÍCULOS" << endl;
+                    cout << "4. SALIR" << endl;
+                    cin >> opc_estacionamiento;
+
+                    switch (opc_estacionamiento) {
+                        case 1:
+                            estacionamiento.ingresarvehiculo();
+                            break;
+
+                        case 2:
+                            estacionamiento.sacarvehiculo();
+                            break;
+
+                        case 3:
+                            estacionamiento.mostrarvehiculos();
+                            break;
+
+                        case 4:
+                            cout << "\nSaliendo de ADMON. DE ESTACIONAMIENTO..." << endl;
+                            break;
+
+                        default:
+                            cout << "\nPor favor digite una opcion valida" << endl;
+                    }
+                } while (opc_estacionamiento != 4);
+        
 }
