@@ -8,16 +8,15 @@ enum exec_Control{
 };
 
 int leeNoVertices();
-void inicializaMatriz(int **matrix);
+void inicializaMatriz(int **matrix, int tam);
 void leeGrafo(int **matrix);
 void imprimeGrafo(int **matrix);
 void calculaGradoVertices(int **matrix);
 
 int main(int argc, char **argv){
-  int vertex = 0;
+  int i, vertex = 0;
   vertex = leeNoVertices();
   int matriz_Grafo[vertex][vertex];
-  inicializaMatriz(matriz_Grafo);
 
   return 0;
 }
@@ -32,9 +31,9 @@ int leeNoVertices(){
   return noVert;
 }
 
-void inicializaMatriz(int **matrix){
+void inicializaMatriz(int **matrix, int tam){
   int i, j = 0;
-  for(int i = 0; i < ){
+  for(int i = 0; i < tam; i++){
 
   }
 }
