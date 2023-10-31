@@ -14,9 +14,35 @@ void imprimeGrafo(int **matrix);
 void calculaGradoVertices(int **matrix);
 
 int main(int argc, char **argv){
-  int i, vertex = 0;
+  int vertex = 0, grado = 0;
   vertex = leeNoVertices();
   int matriz_Grafo[vertex][vertex];
+  int i, j = 0;
+  for(i = 0; i < vertex; i++)
+    for(j = 0; j < vertex; j++)
+      matriz_Grafo[i][j] = 0;
+
+  for(i = 0; i < vertex; i++)
+    for(j = 0; j < vertex; j++){
+      printf("Ingrese el dato de la posición [%i, %i] -> ", i+1, j+1);
+      scanf("%d",&matriz_Grafo[i][j]);
+    }
+
+  for(i = 0; i < vertex; i++)
+    for(j = 0; j < vertex; j++)
+      printf("%i,",matriz_Grafo[i][j]);
+
+
+  //Grado de cada vertice
+  for(i = 0; i < vertex; i++){
+    grado = 0;
+    for(j = 0; j < vertex; j++){
+     if(matriz_Grafo[i][j] == 1)
+        grado++;
+    }
+    printf("El grado del vértice es -> %i\n",grado);
+  }
+
 
   return 0;
 }
@@ -30,13 +56,4 @@ int leeNoVertices(){
     noVert = noVert;
   return noVert;
 }
-
-void inicializaMatriz(int **matrix, int tam){
-  int i, j = 0;
-  for(int i = 0; i < tam; i++){
-
-  }
-}
-
-
 

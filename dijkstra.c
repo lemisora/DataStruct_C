@@ -16,17 +16,24 @@
 *     d[v] = d[u]+w(u,v)
 *     pi(v) = u
 * - extract-min(q) -> selecciona el vértice adyacente con el menor costo
+* - Dijkstra(G,W,S)
+*   -> g - Grafo
+*   -> w - Matriz de costos
+*   -> s - Vértice de origen
+*
+*   - Inicializar (G,S)
+*
 */
 
 #include <stdio.h>
 
-/*
- *  - Funciones para el algoritmo de Dijkstra 
- */
+//Funciones para el algoritmo de Dijkstra
 
+void inicializar();
 void extract_Min();
 void relax();
 void adj();
 int main(){
+
   return 0;
 }
