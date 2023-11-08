@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
 
 int leeNoVertices();
 void multiplicaMatriz(int vertex, int matriz_A[][vertex], int matriz_B[][vertex], int matriz_resultado[][vertex]);
