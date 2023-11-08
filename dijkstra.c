@@ -25,15 +25,46 @@
 *
 */
 
+struct info_vertice{
+  char nom_vert;
+  int distance;
+};
+
+typedef struct info_vertice distancia;
+
 #include <stdio.h>
 
 //Funciones para el algoritmo de Dijkstra
-
-void inicializar();
-void extract_Min();
+void inicializar(int *G, int *S, int n);
+void extract_Min(int *S);
 void relax();
 void adj();
-int main(){
 
+int main(){
+  
   return 0;
 }
+
+void inicializar(int *G, int *S, int n){
+  int tam = n*n;
+  for(int i = 0; i < n; i++)
+    G[i] = 0;
+  for(int i = 0; i < tam; i++)
+    S[i] = 0;
+
+  for(int i = 0; i < n; i++){
+    for(int j = 0; j < n; j++){
+
+    }
+  }
+
+}
+
+void extract_Min(int *S){
+  
+}
+
+void relax(){
+
+}
+
