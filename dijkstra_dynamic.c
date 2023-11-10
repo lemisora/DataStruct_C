@@ -33,7 +33,7 @@ void dijkstra(int n, int grafo[n][n] ,int vert_origen){
       if(distancia[i] != INT_MAX){
         printf("%i\t%i\n",i,distancia[i]);
       }else{
-        printf("%i\t%s\n",i,"inf.");
+        printf("%i\t%s\n",i,"∞");
       }
     }
   }
